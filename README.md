@@ -13,10 +13,51 @@ To use the Data Encryption Standard (DES) algorithm for a practical application,
 
 ## Program:
 
+```
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char msg[100], key[100], enc[100], dec[100];
+    int i, len, keyLen;
+
+    printf("Enter message: ");
+    fgets(msg, 100, stdin);
+    msg[strcspn(msg, "\n")] = '\0';
+
+    printf("Enter key: ");
+    fgets(key, 100, stdin);
+    key[strcspn(key, "\n")] = '\0';
+
+    len = strlen(msg);
+    keyLen = strlen(key);
+
+    for(i = 0; i < len; i++) {
+        enc[i] = msg[i] ^ key[i % keyLen];
+    }
+    enc[len] = '\0';
+
+    printf("\nEncrypted Message (Hex): ");
+    for(i = 0; i < len; i++) {
+        printf("%02X ", (unsigned char)enc[i]);
+    }
+
+    for(i = 0; i < len; i++) {
+        dec[i] = enc[i] ^ key[i % keyLen];
+    }
+    dec[len] = '\0';
+
+    printf("\nDecrypted Message: %s", dec);
+
+    return 0;
+}
+```
 
 
 
 ## Output:
+
+<img width="1536" height="730" alt="Screenshot 2026-05-12 141458" src="https://github.com/user-attachments/assets/e55cc444-c8a2-4f84-8921-1f945e66b025" />
 
 
 ## Result:
